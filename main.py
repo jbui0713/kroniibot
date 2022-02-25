@@ -1,25 +1,41 @@
-import os
-import discord
-import random
+from os import getenv
+from discord import Activity, ActivityType, Message, opus
+from discord.ext import commands
 from dotenv import load_dotenv
+from speech_recognition import AudioFile, Recognizer, Microphone
+
 from commands.DiceRoll import DiceRoll
 from commands.VoiceBot import VoiceBot
+
+import random
+
 load_dotenv()
 
-TOKEN = os.environ['TOKEN']
-PREFIX = os.environ['PREFIX']
-client = discord.Client()
+if (opus_path := getenv("OPUS_PATH")) is not None:
+  opus.load_opus(opus_path)
+
+INITIAL_ACTIVITY = Activity(
+    name = "What's perfect? Me.",
+    type = ActivityType.playing
+)
+
+bot = commands.Bot(
+  command_prefix = getenv('PREFIX'),
+  activity = INITIAL_ACTIVITY
+)
+
+PREFIX = getenv('PREFIX')
 
 greets = ['hello kronii', 'hey kronii', 'konnichiwa kronii', 'hi kronii']
 replies = ['Kroniichiwa', 'クロニーちは']
 
-@client.event
+@bot.event
 async def on_ready():
   print("クロニーは起きます")
 
-@client.event
+@bot.event
 async def on_message(message):
-  if message.author == client.user:
+  if message.author == bot.user:
     return
 
   msg = message.content
@@ -36,4 +52,4 @@ async def on_message(message):
   if msg.startswith(PREFIX+'hello' or PREFIX+'hi' or PREFIX+'konnichiwa'):
     return
 
-client.run(TOKEN)
+bot.run(getenv('TOKEN'))
