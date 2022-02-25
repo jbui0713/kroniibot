@@ -7,7 +7,7 @@ lines = ["oke", "we star lab", "we start lab"]
 
 class YaoWang(commands.Cog):
 
-    @commands.command()
+    @commands.command(aliases=['Yw', 'YW', 'yW'])
     async def yw(self, ctx) -> None:
         
         random_reply = random.choice(lines)
