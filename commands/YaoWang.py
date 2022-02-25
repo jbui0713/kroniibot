@@ -1,4 +1,3 @@
-from ast import alias
 from discord.ext import commands
 from discord import File
 import random
