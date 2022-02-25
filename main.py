@@ -15,8 +15,8 @@ if (opus_path := getenv("OPUS_PATH")) is not None:
   opus.load_opus(opus_path)
 
 INITIAL_ACTIVITY = Activity(
-    name = "What's perfect? Me.",
-    type = ActivityType.custom
+    name="What's perfect? Me.",
+    type=ActivityType.custom
 )
 
 bot = commands.Bot(
@@ -51,7 +51,8 @@ async def on_message(message):
     dice_input = msg.split(PREFIX+'roll ', 1)[1]
     await message.reply(DiceRoll(dice_input).message)
       
-  if msg.startswith(PREFIX+'hello' or PREFIX+'hi' or PREFIX+'konnichiwa'):
-    return
+  await bot.process_commands(message)
+  #if msg.startswith(PREFIX+'play'):
+    #return
 
 bot.run(getenv('TOKEN'))
