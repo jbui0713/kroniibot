@@ -16,13 +16,15 @@ if (opus_path := getenv("OPUS_PATH")) is not None:
 
 INITIAL_ACTIVITY = Activity(
     name = "What's perfect? Me.",
-    type = ActivityType.playing
+    type = ActivityType.custom
 )
 
 bot = commands.Bot(
   command_prefix = getenv('PREFIX'),
   activity = INITIAL_ACTIVITY
 )
+
+bot.add_cog(VoiceBot(bot))
 
 PREFIX = getenv('PREFIX')
 
