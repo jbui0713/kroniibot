@@ -6,6 +6,7 @@ from speech_recognition import AudioFile, Recognizer, Microphone
 
 from commands.DiceRoll import DiceRoll
 from commands.VoiceBot import VoiceBot
+from commands.YaoWang import YaoWang
 
 import random
 
@@ -25,6 +26,7 @@ bot = commands.Bot(
 )
 
 bot.add_cog(VoiceBot(bot))
+bot.add_cog(YaoWang(bot))
 
 PREFIX = getenv('PREFIX')
 
