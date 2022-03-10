@@ -1,4 +1,3 @@
-
 from os import getenv
 from threading import Thread
 from discord import AudioSource, FFmpegPCMAudio, VoiceClient
@@ -55,11 +54,14 @@ class VoiceBot(commands.Cog):
                     text = self.recognizer.recognize_google(
                         audio
                     )
-                    print (text)
+                    print ('Your input:',text)
                     if "hello" in text or "hi" in text:
-                        print ("sound")
                         audio_source = FFmpegPCMAudio(
                             source="voice/hello-kroniichiwa.mp3", executable=ffmpeg_path)
+                        self.play_audio(audio_source)
+                    elif "baca" in text.lower():
+                        audio_source = FFmpegPCMAudio(
+                            source="voice/baka.mp3")
                         self.play_audio(audio_source)
                 except:
                     print ("Come again?")
