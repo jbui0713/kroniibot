@@ -8,6 +8,7 @@ from commands.DiceRoll import DiceRoll
 from commands.VoiceBot import VoiceBot
 from commands.YaoWang import YaoWang
 from commands.VibeCheck import VibeCheck
+from commands.CoinFlip import CoinFlip
 
 import random
 
@@ -26,9 +27,10 @@ bot = commands.Bot(
   activity = INITIAL_ACTIVITY
 )
 
-#bot.add_cog(VoiceBot(bot))
+bot.add_cog(VoiceBot(bot))
 bot.add_cog(YaoWang(bot))
 bot.add_cog(VibeCheck(bot))
+bot.add_cog(CoinFlip(bot))
 
 PREFIX = getenv('PREFIX')
 
@@ -55,6 +57,8 @@ async def on_message(message):
     dice_input = msg.split(PREFIX+'roll ', 1)[1]
     await message.reply(DiceRoll(dice_input).message)
       
+
+
   await bot.process_commands(message)
   #if msg.startswith(PREFIX+'play'):
     #return

@@ -1,4 +1,6 @@
 from os import getenv
+import os
+import random
 from threading import Thread
 from discord import AudioSource, FFmpegPCMAudio, VoiceClient
 from discord.ext import commands
@@ -36,7 +38,14 @@ class VoiceBot(commands.Cog):
             if self.voice_client is not None:
                 await self.voice_client.disconnect()
 
+            filepath = 'voice/welcome-back/'
+            audio_file = os.listdir(filepath)
+            random_welcome = random.choice(audio_file)
+            greet = filepath+str(random_welcome)
+            audio_source = FFmpegPCMAudio(source=greet, executable=ffmpeg_path)
             self.voice_client = await after.channel.connect()
+            self.play_audio(audio_source)
+            
 
         elif self.voice_client is not None:
             await self.voice_client.disconnect()
@@ -59,7 +68,7 @@ class VoiceBot(commands.Cog):
                         audio_source = FFmpegPCMAudio(
                             source="voice/hello-kroniichiwa.mp3", executable=ffmpeg_path)
                         self.play_audio(audio_source)
-                    elif "baca" in text.lower():
+                    elif "baca" in text.lower() or "baka" in text:
                         audio_source = FFmpegPCMAudio(
                             source="voice/baka.mp3")
                         self.play_audio(audio_source)
